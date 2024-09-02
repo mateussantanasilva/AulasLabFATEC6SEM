@@ -1,15 +1,20 @@
-import express, { Request, Response } from 'express'
+import express from 'express'
+import { create } from 'express-handlebars'
+import path from 'path'
+import bodyParser from 'body-parser'
+import { router } from './routes'
 
 const app = express()
+const handlebars = create({ defaultLayout: 'main' })
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('Hello world!')
-})
+app.engine('handlebars', handlebars.engine)
+app.set('view engine', 'handlebars')
 
-app.get('/cadastro/:nome/:sobrenome/:idade', (req: Request, res: Response) => {
-  console.log(req.params)
+app.set('views', path.join(__dirname, 'views'))
 
-  res.sendFile(`${__dirname}/views/register.html`)
-})
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+app.use(router)
 
 app.listen(3333, () => console.log('🚀 HTTP Server Running...'))

@@ -1,6 +1,7 @@
 import { DataTypes } from 'sequelize'
 import { sequelize } from './connection'
 
+// adiciona automaticamente os campos createdAt e updatedAt nos models
 export const Appointments = sequelize.define('agendamentos', {
   nome: {
     type: DataTypes.STRING,
