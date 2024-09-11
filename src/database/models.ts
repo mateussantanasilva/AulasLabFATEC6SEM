@@ -25,7 +25,16 @@ export const Appointments = sequelize.define('agendamentos', {
     type: DataTypes.TEXT,
   },
 })
-Appointments.sync().then(() => console.log('Appointments synced successfully!'))
+
+sequelize
+  .getQueryInterface()
+  .showAllTables()
+  .then((tables) => {
+    if (!tables.includes('agendamentos'))
+      Appointments.sync().then(() =>
+        console.log('Appointments synced successfully!'),
+      )
+  })
 
 export const Clients = sequelize.define('clientes', {
   nome: {
@@ -47,4 +56,11 @@ export const Clients = sequelize.define('clientes', {
     type: DataTypes.INTEGER,
   },
 })
-Clients.sync().then(() => console.log('Clients synced successfully!'))
+
+sequelize
+  .getQueryInterface()
+  .showAllTables()
+  .then((tables) => {
+    if (!tables.includes('clientes'))
+      Clients.sync().then(() => console.log('Clients synced successfully!'))
+  })
