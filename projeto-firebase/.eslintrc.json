@@ -1,0 +1,8 @@
+{
+  "extends": "@rocketseat/eslint-config/node",
+  "rules": {
+    "n/no-path-concat": "off",
+    "@typescript-eslint/no-var-requires":"off",
+    "camelcase":"off"
+  }
+}
