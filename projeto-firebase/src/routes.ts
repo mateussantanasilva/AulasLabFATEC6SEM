@@ -38,25 +38,7 @@ router.get('/editar/:id', async (req, res) => {
 
   const client = (await db.collection('clientes').doc(id).get()).data()
 
-  const options = [
-    {
-      value: 'celular',
-      label: 'Celular',
-      selected: client?.origem === 'celular',
-    },
-    {
-      value: 'whatsapp',
-      label: 'Whatsapp',
-      selected: client?.origem === 'whatsapp',
-    },
-    {
-      value: 'telefone_fixo',
-      label: 'Telefone Fixo',
-      selected: client?.origem === 'telefone_fixo',
-    },
-  ]
-
-  res.render('edit', { client: { id, ...client }, options })
+  res.render('edit', { client: { id, ...client } })
 })
 
 router.post('/editar', async (req, res) => {
@@ -65,7 +47,7 @@ router.post('/editar', async (req, res) => {
   await db
     .collection('clientes')
     .doc(id)
-    .set({ nome, telefone, origem, data_contato, observacao })
+    .update({ nome, telefone, origem, data_contato, observacao })
 
   res.redirect('/consulta')
 })

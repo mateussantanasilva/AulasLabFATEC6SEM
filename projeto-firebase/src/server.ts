@@ -1,12 +1,17 @@
 import express from 'express'
-import { create } from 'express-handlebars'
+import { engine } from 'express-handlebars'
 import path from 'path'
 import { router } from './routes'
 
 const app = express()
-const handlebars = create({ defaultLayout: 'main' })
 
-app.engine('handlebars', handlebars.engine)
+app.engine('handlebars', engine({
+  helpers: {
+    eq: function (v1: any, v2: any) {
+      return v1 === v2
+    }
+  }
+}))
 app.set('view engine', 'handlebars')
 
 app.set('views', path.join(__dirname, 'views'))
